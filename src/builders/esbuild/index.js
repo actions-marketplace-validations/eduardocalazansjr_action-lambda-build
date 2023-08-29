@@ -1,5 +1,5 @@
 const esbuild = require('esbuild')
-
+const nativeModulesPlugin = require('./native-node-modules')
 const parseHandlersToEntrypoints = require('./parse-handlers-to-entry-points')
 
 const defaultSettings = {
@@ -26,7 +26,7 @@ const buildESBuildLambda = async ({ handlers, build }) => {
     minify: build.minify ?? defaultSettings.minify,
     external: build.external ?? defaultSettings.external,
     loader: build.loader,
-    plugins: build.plugins ? [build.plugins] : [],
+    plugins: nativeModulesPlugin,
   }
 
   return esbuild.build(buildOptions)
