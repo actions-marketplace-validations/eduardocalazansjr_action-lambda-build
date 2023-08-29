@@ -85,7 +85,24 @@ const buildRun = async (options = {}) => {
     })
   }
 
-  const handlers = readdirSync(outdir)
+  const handlers = readdirSync(outdir, { withFileTypes: true })
+    .filter(dir => dir.isDirectory())
+    .map(dir => dir.name)
+
+  const extras = readdirSync(outdir, { withFileTypes: true })
+    .filter(dir => !dir.isDirectory())
+    .map(dir => dir.name)
+
+  if (extras.length > 0) {
+    for (const extra of extras) {
+      for (const handler of handlers) {
+        fse.copySync(
+          path.resolve(process.cwd()) + `/${extra}`,
+          path.resolve(process.cwd(), outdir, handler) + `/${extra}`,
+          { overwrite: false })
+      }
+    }
+  }
 
   if (options.staticPath) {
     console.debug('Copying static files to lambda build')
