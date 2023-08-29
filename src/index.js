@@ -22,6 +22,7 @@ const builders = {
  *  builder?: string,
  *  bundle?: boolean,
  *  external?: string[],
+ *  plugins?: string[],
  *  functions?: string,
  *  individually?: boolean,
  *  minify?: boolean
@@ -30,6 +31,7 @@ const builders = {
  *  three_shaking?: boolean,
  *  zip?: boolean,
  *  loader?: object,
+ *  staticPath?: string
  * }} BuildOptions
  *
  * @param {BuildOptions} options
@@ -56,6 +58,7 @@ const buildRun = async (options = {}) => {
     three_shaking: options.three_shaking ?? true,
     zip: options.zip ?? true,
     loader: options.loader,
+    plugins: options.plugins,
   }
 
   const builder = builders[buildOptions.builder ?? 'esbuild']

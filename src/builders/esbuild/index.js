@@ -26,6 +26,7 @@ const buildESBuildLambda = async ({ handlers, build }) => {
     minify: build.minify ?? defaultSettings.minify,
     external: build.external ?? defaultSettings.external,
     loader: build.loader,
+    plugins: build.plugins ? [build.plugins] : [],
   }
 
   return esbuild.build(buildOptions)

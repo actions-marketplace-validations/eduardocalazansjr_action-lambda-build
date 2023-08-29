@@ -1,5 +1,5 @@
-name: 'Action Lambda Build'
-description: 'Build of lambda with Actions'
+name: 'Action Lambda Build with Plugins'
+description: 'Build of lambda with Actions w/ support to ESBUILD plugins'
 inputs:
   base_dir:
     description: 'Source directory'
@@ -43,6 +43,9 @@ inputs:
     default: ''
   static_path:
     description: 'Copy path to build'
+  plugins:
+    description: 'Add esbuild plugins'
+    default: '[]'
 
 runs:
   using: 'docker'
